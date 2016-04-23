@@ -1,21 +1,8 @@
 ﻿/// <reference path="scripts/typings/jquery/jquery.d.ts" />
+/// <reference path="ipointoptions.ts" />
 
 
-module BouncingBall {
-
-    export interface IPointOptions {
-        colour: string;
-        x: number;
-        y: number;
-        z: number;
-        size: number;
-    }
-
-    export interface IVectorOptions {
-        x: number;
-        y: number;
-        z: number;
-    }
+module BouncingBalls {
 
     export class Point {
         public x: number;
@@ -30,9 +17,8 @@ module BouncingBall {
         public originalPosition: Vector;
         public springStrength: number;
         public velocity: Vector;
-        public canvas: HTMLCanvasElement;
-
-        constructor(options: IPointOptions, canvas: HTMLCanvasElement) {
+        
+        constructor(options: IPointOptions) {
             this.colour = options.colour;
             this.currentPosition = new Vector(options.x, options.y, options.z);
             this.originalPosition = new Vector(options.x, options.y, options.z);
@@ -41,7 +27,6 @@ module BouncingBall {
             this.springStrength = 0.1;
             this.targetPosition = new Vector(options.x, options.y, options.z);
             this.velocity = new Vector(0.0, 0.0, 0.0);
-            this.canvas = canvas;
         }
 
         public update(): void {
@@ -73,8 +58,8 @@ module BouncingBall {
             if (this.radius < 1) this.radius = 1;
         }
 
-        public draw(): void {
-            var context = <CanvasRenderingContext2D>this.canvas.getContext('2d');
+        public draw(canvas: HTMLCanvasElement): void {
+            var context = <CanvasRenderingContext2D>canvas.getContext('2d');
             context.fillStyle = this.colour;
             context.beginPath();
             context.arc(this.currentPosition.x, this.currentPosition.y, this.radius, 0, Math.PI * 2, true);

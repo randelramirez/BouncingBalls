@@ -1,10 +1,10 @@
-﻿module BouncingBall {
+﻿module BouncingBalls {
 
     export class Vector {
         public x: number;
         public y: number;
         public z: number;
-        constructor(x: number, y: number, z: number/*options: IVectorOptions*/) {
+        constructor(x: number, y: number, z: number = 0) {
         }
 
         public addX(x: number): void {
@@ -24,6 +24,5 @@
             this.y = y;
             this.z = z;
         }
-
     }
 }
