@@ -1,7 +1,7 @@
 var BouncingBall;
 (function (BouncingBall) {
     var Vector = (function () {
-        function Vector(x, y, z /*options: IVectorOptions*/) {
+        function Vector(x, y, z) {
         }
         Vector.prototype.addX = function (x) {
             this.x += x;
@@ -21,4 +21,3 @@ var BouncingBall;
     }());
     BouncingBall.Vector = Vector;
 })(BouncingBall || (BouncingBall = {}));
-//# sourceMappingURL=Vector.js.map
