@@ -17,15 +17,15 @@ module BouncingBalls {
         public originalPosition: Vector;
         public springStrength: number;
         public velocity: Vector;
-        
-        constructor(options: IPointOptions) {
-            this.colour = options.colour;
-            this.currentPosition = new Vector(options.x, options.y, options.z);
-            this.originalPosition = new Vector(options.x, options.y, options.z);
-            this.size = options.size;
+
+        constructor(x: number, y: number, z: number, size: number, colour: string) {
+            this.colour = colour;
+            this.currentPosition = new Vector(x, y, z);
+            this.originalPosition = new Vector(x, y, z);
+            this.size = size;
             this.radius = this.size;
             this.springStrength = 0.1;
-            this.targetPosition = new Vector(options.x, options.y, options.z);
+            this.targetPosition = new Vector(x, y, z);
             this.velocity = new Vector(0.0, 0.0, 0.0);
         }
 

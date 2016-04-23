@@ -1,17 +1,18 @@
-var BouncingBall;
-(function (BouncingBall) {
+/// <reference path="scripts/typings/jquery/jquery.d.ts" />
+/// <reference path="ipointoptions.ts" />
+var BouncingBalls;
+(function (BouncingBalls) {
     var Point = (function () {
-        function Point(options, canvas) {
+        function Point(options) {
             this.friction = 0.8;
             this.colour = options.colour;
-            this.currentPosition = new BouncingBall.Vector(options.x, options.y, options.z);
-            this.originalPosition = new BouncingBall.Vector(options.x, options.y, options.z);
+            this.currentPosition = new BouncingBalls.Vector(options.x, options.y, options.z);
+            this.originalPosition = new BouncingBalls.Vector(options.x, options.y, options.z);
             this.size = options.size;
             this.radius = this.size;
             this.springStrength = 0.1;
-            this.targetPosition = new BouncingBall.Vector(options.x, options.y, options.z);
-            this.velocity = new BouncingBall.Vector(0.0, 0.0, 0.0);
-            this.canvas = canvas;
+            this.targetPosition = new BouncingBalls.Vector(options.x, options.y, options.z);
+            this.velocity = new BouncingBalls.Vector(0.0, 0.0, 0.0);
         }
         Point.prototype.update = function () {
             var dx = this.targetPosition.x - this.currentPosition.x;
@@ -38,8 +39,8 @@ var BouncingBall;
             if (this.radius < 1)
                 this.radius = 1;
         };
-        Point.prototype.draw = function () {
-            var context = this.canvas.getContext('2d');
+        Point.prototype.draw = function (canvas) {
+            var context = canvas.getContext('2d');
             context.fillStyle = this.colour;
             context.beginPath();
             context.arc(this.currentPosition.x, this.currentPosition.y, this.radius, 0, Math.PI * 2, true);
@@ -47,5 +48,6 @@ var BouncingBall;
         };
         return Point;
     }());
-    BouncingBall.Point = Point;
-})(BouncingBall || (BouncingBall = {}));
+    BouncingBalls.Point = Point;
+})(BouncingBalls || (BouncingBalls = {}));
+//# sourceMappingURL=Point.js.map

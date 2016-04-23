@@ -5,14 +5,105 @@
     <meta charset="utf-8" />
     <title>TypeScript HTML App</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
-    <script src="app.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
 </head>
 
 <body>
     <canvas id="c" width="400" height="400"></canvas>
-    <!--<p id="Randel">Remade by Randel Ramirez</p>-->
-    <!--<p id="attribution">Credit to:Rob Hawkes, Orginal author of the code – <a href="http://twitter.com/robhawkes">Twitter</a> – <a href="http://rawkes.com/blog/2010/09/07/recreating-googles-bouncing-balls-logo-in-html5-canvas">Blog Post</a> - <a href="http://twitter.com/?status=RT%20%40robhawkes%3A%20So%20I%20reconstructed%20the%20Google%20bouncing%20balls%20logo%20in%20HTML5%20canvas.%20What%20do%20you%20think%3F%20http%3A%2F%2Frawk.es%2Fr">Tweet This</a></p>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //get canvas
+            var canvas = $("#c").get(0);
+            //initialize points
+            var g = [new BouncingBalls.Point(-45, 120, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-45, 100, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-45, 80, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-45, 60, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-45, 40, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-45, 20, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-45, 0, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(-25, 10, 0.0, 6, "#3059e3"),
+                new BouncingBalls.Point(-10, 5, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(15, 15, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(0, 50, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(10, 35, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(-15, 60, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(-25, 75, 0.0, 6, "#3059e3"),
+                new BouncingBalls.Point(-15, 90, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(-5, 105, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(10, 115, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(90, 120, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(80, 110, 0.0, 7, "#c41731"),
+                new BouncingBalls.Point(70, 120, 0.0, 6, "#c41731"),
+                new BouncingBalls.Point(60, 125, 0.0, 5, "#c41731"),
+                new BouncingBalls.Point(50, 125, 0.0, 4, "#c41731"),
+                new BouncingBalls.Point(45, 115, 0.0, 4, "#c41731"),
+                new BouncingBalls.Point(50, 125, 0.0, 4, "#c41731"),
+                new BouncingBalls.Point(45, 105, 0.0, 5, "#c41731"),
+                new BouncingBalls.Point(48, 95, 0.0, 5, "#c41731"),
+                new BouncingBalls.Point(53, 85, 0.0, 6, "#c41731"),
+                new BouncingBalls.Point(67, 80, 0.0, 7, "#c41731"),
+                new BouncingBalls.Point(75, 95, 0.0, 7, "#c41731"),
+                new BouncingBalls.Point(120, 120, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(120, 105, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(120, 90, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(120, 75, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(132, 85, 0.0, 5, "#ed9d33"),
+                new BouncingBalls.Point(145, 77, 0.0, 6, "#ed9d33"),
+                new BouncingBalls.Point(155, 88, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(157, 105, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(157, 122, 0.0, 7, "#ed9d33"),
+                new BouncingBalls.Point(225, 25, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(225, 45, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(225, 65, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(225, 85, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(225, 105, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(225, 125, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(210, 125, 0.0, 8, "#3059e3"),
+                new BouncingBalls.Point(195, 115, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(185, 100, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(195, 85, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(205, 70, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(205, 70, 0.0, 7, "#3059e3"),
+                new BouncingBalls.Point(255, 100, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(270, 108, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(285, 100, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(293, 90, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(280, 80, 0.0, 6, "#11ab35"),
+                new BouncingBalls.Point(265, 88, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(257, 115, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(270, 125, 0.0, 7, "#11ab35"),
+                new BouncingBalls.Point(285, 120, 0.0, 6, "#11ab35"),
+                new BouncingBalls.Point(300, 118, 0.0, 5, "#11ab35"),
+                new BouncingBalls.Point(325, 125, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 110, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 95, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 80, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 65, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 50, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 35, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 20, 0.0, 7, "#cd4359"),
+                new BouncingBalls.Point(325, 5, 0.0, 7, "#cd4359")];
+            gLength = g.length;
+
+            var pointCollection = new BouncingBalls.PointCollection();
+            pointCollection.points = g;
+
+            var view = new BouncingBalls.View(canvas, pointCollection);
+            view.updateCanvasDimensions();
+            view.initEventListeners();
+            view.timeout();
+
+            for (var i = 0; i < gLength; i++) {
+                g[i].currentPosition.x = (view.canvasWidth / 2 - 180) + g[i].currentPosition.x;
+                g[i].currentPosition.y = (view.canvasHeight / 2 - 65) + g[i].currentPosition.y;
+
+                g[i].originalPosition.x = (view.canvasWidth / 2 - 180) + g[i].originalPosition.x;
+                g[i].originalPosition.y = (view.canvasHeight / 2 - 65) + g[i].originalPosition.y;
+            };
+
+        })
+    </script>
 </body>
 </html>
