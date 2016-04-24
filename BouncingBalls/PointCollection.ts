@@ -5,8 +5,7 @@
 
         constructor(points: Point[]) {
             this.mousePos = new Vector(0, 0);
-            this.points = points;//= new Array<Point>();
-            //this.points = [];
+            this.points = points;
         }
 
         public newPoint(x: number, y: number, z: number): Point {

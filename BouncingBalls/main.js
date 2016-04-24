@@ -55,8 +55,7 @@ var BouncingBalls;
     var PointCollection = (function () {
         function PointCollection(points) {
             this.mousePos = new BouncingBalls.Vector(0, 0);
-            this.points = points; //= new Array<Point>();
-            //this.points = [];
+            this.points = points;
         }
         PointCollection.prototype.newPoint = function (x, y, z) {
             var options = { x: x, y: y, z: z, colour: '', size: 0 };
@@ -141,26 +140,16 @@ var BouncingBalls;
             this.pointCollection = pointCollection;
         }
         View.prototype.initEventListeners = function () {
-            //jQuery(window).bind('resize', this.updateCanvasDimensions).bind('mousemove', onMove);
-            //jQuery(window).bind('resize', () => { this.updateCanvasDimensions(); }).bind('mousemove', this.onMove);
             var _this = this;
             jQuery(window).bind('resize', function () { _this.updateCanvasDimensions(); }).bind('mousemove', function (e) { _this.onMove(e); });
-            //var self = this;
-            //jQuery(window).bind('resize', () => { this.updateCanvasDimensions(); }).bind('mousemove', self.onMove);
-            //this.canvas.ontouchmove = function (e) {
-            //    e.preventDefault();
-            //};
             this.canvas.ontouchmove = function (e) { _this.onTouchMove(e); };
-            //this.canvas.ontouchstart = function (e) {
-            //    e.preventDefault();
-            //};
             this.canvas.ontouchstart = function (e) { e.preventDefault(); };
         };
         View.prototype.draw = function () {
             var tmpCanvas = this.canvas;
             var ctx;
-            var canvasHeight;
-            var canvasWidth;
+            var canvasHeight = this.canvasHeight;
+            var canvasWidth = this.canvasWidth;
             if (tmpCanvas.getContext == null) {
                 return;
             }
@@ -189,9 +178,7 @@ var BouncingBalls;
             var _this = this;
             this.draw();
             this.update();
-            var self = this;
             setTimeout(function () { _this.timeout(); }, 30);
-            //setTimeout(function () { timeout() }, 30);
         };
         View.prototype.update = function () {
             if (this.pointCollection)

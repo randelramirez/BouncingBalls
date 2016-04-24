@@ -17,24 +17,9 @@ module BouncingBalls {
         }
 
         public initEventListeners(): void {
-            //jQuery(window).bind('resize', this.updateCanvasDimensions).bind('mousemove', onMove);
-            //jQuery(window).bind('resize', () => { this.updateCanvasDimensions(); }).bind('mousemove', this.onMove);
-
 
             jQuery(window).bind('resize', () => { this.updateCanvasDimensions(); }).bind('mousemove', (e) => { this.onMove(e); });
-            //var self = this;
-            //jQuery(window).bind('resize', () => { this.updateCanvasDimensions(); }).bind('mousemove', self.onMove);
-
-            //this.canvas.ontouchmove = function (e) {
-            //    e.preventDefault();
-            //};
-
             this.canvas.ontouchmove = (e: Event) => { this.onTouchMove(e); };
-
-            //this.canvas.ontouchstart = function (e) {
-            //    e.preventDefault();
-            //};
-
             this.canvas.ontouchstart = (e: Event) => { e.preventDefault(); };
         }
 
@@ -42,8 +27,8 @@ module BouncingBalls {
 
             var tmpCanvas = this.canvas;
             var ctx;
-            var canvasHeight;
-            var canvasWidth;
+            var canvasHeight = this.canvasHeight;
+            var canvasWidth = this.canvasWidth;
             if (tmpCanvas.getContext == null) {
                 return;
             };
@@ -76,9 +61,7 @@ module BouncingBalls {
         public timeout(): void {
             this.draw();
             this.update();
-            var self = this;
             setTimeout(() => { this.timeout(); }, 30);
-            //setTimeout(function () { timeout() }, 30);
         }
 
         public update(): void {
