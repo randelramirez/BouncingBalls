@@ -29,12 +29,12 @@ module BouncingBalls {
             var ctx;
             var canvasHeight = this.canvasHeight;
             var canvasWidth = this.canvasWidth;
-            if (tmpCanvas.getContext == null) {
+            if (this.canvas.getContext == null) {
                 return;
             };
 
-            ctx = tmpCanvas.getContext('2d');
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            ctx = this.canvas.getContext('2d');
+            ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
             if (this.pointCollection)
                 this.pointCollection.draw();

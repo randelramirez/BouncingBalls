@@ -90,6 +90,8 @@
             var pointCollection = new BouncingBalls.PointCollection();
             pointCollection.points = g;
 
+            //var decoratedPointCollection = new BouncingBalls.PointCollectionInforRedDecorator(pointCollection);
+
             var view = new BouncingBalls.View(canvas, pointCollection);
             view.updateCanvasDimensions();
             view.initEventListeners();
@@ -102,7 +104,6 @@
                 g[i].originalPosition.x = (view.canvasWidth / 2 - 180) + g[i].originalPosition.x;
                 g[i].originalPosition.y = (view.canvasHeight / 2 - 65) + g[i].originalPosition.y;
             };
-
         })
     </script>
 </body>

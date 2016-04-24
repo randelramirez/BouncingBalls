@@ -28,9 +28,11 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="IPointCollection.ts" />
     <TypeScriptCompile Include="IPointOptions.ts" />
     <TypeScriptCompile Include="Point.ts" />
     <TypeScriptCompile Include="PointCollection.ts" />
+    <TypeScriptCompile Include="PointCollectionInforRedDecorator.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Vector.ts" />
     <TypeScriptCompile Include="View.ts" />

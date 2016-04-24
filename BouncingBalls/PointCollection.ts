@@ -1,5 +1,7 @@
-﻿module BouncingBalls {
-    export class PointCollection {
+﻿/// <reference path="ipointcollection.ts" />
+
+module BouncingBalls {
+    export class PointCollection implements IPointCollection {
         public mousePos: Vector;
         public points: Point[];
 
@@ -7,14 +9,7 @@
             this.mousePos = new Vector(0, 0);
             this.points = points;
         }
-
-        public newPoint(x: number, y: number, z: number): Point {
-            var options: IPointOptions = { x: x, y: y, z: z, colour: '', size: 0 };
-            var point = new Point(x, y, z, 0,'');
-            this.points.push(point);
-            return point;
-        }
-
+      
         public update(): void {
             var pointsLength = this.points.length;
 

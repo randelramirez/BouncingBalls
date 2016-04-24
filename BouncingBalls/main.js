@@ -50,6 +50,7 @@ var BouncingBalls;
     }());
     BouncingBalls.Point = Point;
 })(BouncingBalls || (BouncingBalls = {}));
+/// <reference path="ipointcollection.ts" />
 var BouncingBalls;
 (function (BouncingBalls) {
     var PointCollection = (function () {
@@ -57,12 +58,6 @@ var BouncingBalls;
             this.mousePos = new BouncingBalls.Vector(0, 0);
             this.points = points;
         }
-        PointCollection.prototype.newPoint = function (x, y, z) {
-            var options = { x: x, y: y, z: z, colour: '', size: 0 };
-            var point = new BouncingBalls.Point(x, y, z, 0, '');
-            this.points.push(point);
-            return point;
-        };
         PointCollection.prototype.update = function () {
             var pointsLength = this.points.length;
             for (var i = 0; i < pointsLength; i++) {
@@ -99,6 +94,36 @@ var BouncingBalls;
         return PointCollection;
     }());
     BouncingBalls.PointCollection = PointCollection;
+})(BouncingBalls || (BouncingBalls = {}));
+/// <reference path="point.ts" />
+var BouncingBalls;
+(function (BouncingBalls) {
+    var PointCollectionInforRedDecorator = (function () {
+        function PointCollectionInforRedDecorator(pointCollection) {
+            this.pointCollection = pointCollection;
+            this.points = this.pointCollection.points;
+            this.mousePos = this.pointCollection.mousePos;
+            this.changeColor();
+        }
+        PointCollectionInforRedDecorator.prototype.update = function () {
+            this.pointCollection.update();
+        };
+        PointCollectionInforRedDecorator.prototype.draw = function () {
+            this.pointCollection.draw();
+        };
+        PointCollectionInforRedDecorator.prototype.changeColor = function () {
+            var length = this.pointCollection.points.length;
+            for (var i = 0; i < length; i++) {
+                var point = this.pointCollection.points[i];
+                point.colour = '#c41731';
+            }
+            for (var i = 0; i < length; i++) {
+                var point = this.pointCollection.points[i];
+            }
+        };
+        return PointCollectionInforRedDecorator;
+    }());
+    BouncingBalls.PointCollectionInforRedDecorator = PointCollectionInforRedDecorator;
 })(BouncingBalls || (BouncingBalls = {}));
 var BouncingBalls;
 (function (BouncingBalls) {
@@ -150,12 +175,12 @@ var BouncingBalls;
             var ctx;
             var canvasHeight = this.canvasHeight;
             var canvasWidth = this.canvasWidth;
-            if (tmpCanvas.getContext == null) {
+            if (this.canvas.getContext == null) {
                 return;
             }
             ;
-            ctx = tmpCanvas.getContext('2d');
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            ctx = this.canvas.getContext('2d');
+            ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
             if (this.pointCollection)
                 this.pointCollection.draw();
         };
