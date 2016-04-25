@@ -4,6 +4,7 @@
 
 module BouncingBalls {
 
+    //Refactor, change to Ball class
     export class Point {
         public x: number;
         public y: number;
@@ -13,9 +14,9 @@ module BouncingBalls {
         public currentPosition: Vector;
         public targetPosition: Vector;
         public radius: number;
-        public friction: number = 0.8;
+        private friction: number = 0.8;
         public originalPosition: Vector;
-        public springStrength: number;
+        private springStrength: number;
         public velocity: Vector;
 
         constructor(x: number, y: number, z: number, size: number, colour: string) {

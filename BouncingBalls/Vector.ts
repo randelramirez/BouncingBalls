@@ -1,5 +1,7 @@
 ﻿module BouncingBalls {
 
+    //Changed to VectorPoint
+    //Implements, IVector, IPoint
     export class Vector {
         public x: number;
         public y: number;

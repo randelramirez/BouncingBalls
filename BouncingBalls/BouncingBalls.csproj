@@ -28,8 +28,12 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="IMoving.ts" />
+    <TypeScriptCompile Include="IPoint.ts" />
     <TypeScriptCompile Include="IPointCollection.ts" />
+    <TypeScriptCompile Include="IPointCoordinates.ts" />
     <TypeScriptCompile Include="IPointOptions.ts" />
+    <TypeScriptCompile Include="IVector.ts" />
     <TypeScriptCompile Include="Point.ts" />
     <TypeScriptCompile Include="PointCollection.ts" />
     <TypeScriptCompile Include="PointCollectionInforRedDecorator.ts" />
