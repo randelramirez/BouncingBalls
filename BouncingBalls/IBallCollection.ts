@@ -1,9 +1,9 @@
 ﻿module BouncingBalls {
 
-    export interface IPointCollection {
+    export interface IBallCollection {
         update(): void;
         draw(): void
-        points: Point[];
+        balls: Ball[];
         mousePos: Vector;
     }
 }

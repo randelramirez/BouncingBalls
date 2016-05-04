@@ -1,36 +1,36 @@
-﻿/// <reference path="point.ts" />
+﻿/// <reference path="ball.ts" />
 
 module BouncingBalls {
 
-    export class PointCollectionInforRedDecorator implements IPointCollection {
-        pointCollection: IPointCollection;
-        points: Point[];
+    export class PointCollectionInforRedDecorator implements IBallCollection {
+        ballCollection: IBallCollection;
+        balls: Ball[];
         mousePos: Vector;
-        constructor(pointCollection: IPointCollection) {
-            this.pointCollection = pointCollection;
-            this.points = this.pointCollection.points;
-            this.mousePos = this.pointCollection.mousePos;
+        constructor(ballCollection: IBallCollection) {
+            this.ballCollection = ballCollection;
+            this.balls = this.ballCollection.balls;
+            this.mousePos = this.ballCollection.mousePos;
             this.changeColor();
 
         }
 
         public update(): void {
-            this.pointCollection.update();
+            this.ballCollection.update();
         }
 
         public draw(): void {
-            this.pointCollection.draw();
+            this.ballCollection.draw();
         }
 
         private changeColor(): void {
-            var length = this.pointCollection.points.length;
+            var length = this.ballCollection.balls.length;
             for (var i = 0; i < length; i++) {
-                var point = this.pointCollection.points[i];
+                var point = this.ballCollection.balls[i];
                 point.colour = '#c41731';
             }
 
             for (var i = 0; i < length; i++) {
-                var point = this.pointCollection.points[i];
+                var point = this.ballCollection.balls[i];
             }
         }
     }

@@ -2,9 +2,9 @@
 /// <reference path="ipointoptions.ts" />
 var BouncingBalls;
 (function (BouncingBalls) {
-    var Point = (function () {
-        function Point(x, y, z, size, colour) {
-            this.friction = 0.8;
+    var Ball = (function () {
+        function Ball(x, y, z, size, colour) {
+            this.friction = 0.8; // move to interface
             this.colour = colour;
             this.currentPosition = new BouncingBalls.Vector(x, y, z);
             this.originalPosition = new BouncingBalls.Vector(x, y, z);
@@ -14,7 +14,7 @@ var BouncingBalls;
             this.targetPosition = new BouncingBalls.Vector(x, y, z);
             this.velocity = new BouncingBalls.Vector(0.0, 0.0, 0.0);
         }
-        Point.prototype.update = function () {
+        Ball.prototype.update = function () {
             var dx = this.targetPosition.x - this.currentPosition.x;
             var ax = dx * this.springStrength;
             this.velocity.x += ax;
@@ -39,86 +39,89 @@ var BouncingBalls;
             if (this.radius < 1)
                 this.radius = 1;
         };
-        Point.prototype.draw = function (canvas) {
+        // move to draw to a different interface/class, draw accepts a ball and then draw//
+        //ball should not be responsible for drawing itself
+        Ball.prototype.draw = function (canvas) {
             var context = canvas.getContext('2d');
             context.fillStyle = this.colour;
             context.beginPath();
             context.arc(this.currentPosition.x, this.currentPosition.y, this.radius, 0, Math.PI * 2, true);
             context.fill();
         };
-        return Point;
+        return Ball;
     }());
-    BouncingBalls.Point = Point;
+    BouncingBalls.Ball = Ball;
 })(BouncingBalls || (BouncingBalls = {}));
-/// <reference path="ipointcollection.ts" />
+/// <reference path="iballcollection.ts" />
 var BouncingBalls;
 (function (BouncingBalls) {
-    var PointCollection = (function () {
-        function PointCollection(points) {
+    //choose appropriate name, Rename this class
+    var BallCollection = (function () {
+        function BallCollection(points) {
             this.mousePos = new BouncingBalls.Vector(0, 0);
-            this.points = points;
+            this.balls = points;
         }
-        PointCollection.prototype.update = function () {
-            var pointsLength = this.points.length;
+        BallCollection.prototype.update = function () {
+            var pointsLength = this.balls.length;
             for (var i = 0; i < pointsLength; i++) {
-                var point = this.points[i];
-                if (point == null)
+                var ball = this.balls[i];
+                if (ball == null)
                     continue;
-                var dx = this.mousePos.x - point.currentPosition.x;
-                var dy = this.mousePos.y - point.currentPosition.y;
+                var dx = this.mousePos.x - ball.currentPosition.x;
+                var dy = this.mousePos.y - ball.currentPosition.y;
                 var dd = (dx * dx) + (dy * dy);
                 var d = Math.sqrt(dd);
                 if (d < 150) {
-                    point.targetPosition.x = (this.mousePos.x < point.currentPosition.x) ? point.currentPosition.x - dx : point.currentPosition.x - dx;
-                    point.targetPosition.y = (this.mousePos.y < point.currentPosition.y) ? point.currentPosition.y - dy : point.currentPosition.y - dy;
+                    ball.targetPosition.x = (this.mousePos.x < ball.currentPosition.x) ? ball.currentPosition.x - dx : ball.currentPosition.x - dx;
+                    ball.targetPosition.y = (this.mousePos.y < ball.currentPosition.y) ? ball.currentPosition.y - dy : ball.currentPosition.y - dy;
                 }
                 else {
-                    point.targetPosition.x = point.originalPosition.x;
-                    point.targetPosition.y = point.originalPosition.y;
+                    ball.targetPosition.x = ball.originalPosition.x;
+                    ball.targetPosition.y = ball.originalPosition.y;
                 }
                 ;
-                point.update();
+                ball.update();
             }
         };
-        PointCollection.prototype.draw = function () {
-            var pointsLength = this.points.length;
+        BallCollection.prototype.draw = function () {
+            var pointsLength = this.balls.length;
             for (var i = 0; i < pointsLength; i++) {
-                var point = this.points[i];
-                if (point == null)
+                var ball = this.balls[i];
+                if (ball == null)
                     continue;
                 var canvas = document.getElementById("c");
-                point.draw(canvas);
+                ball.draw(canvas);
             }
             ;
         };
-        return PointCollection;
+        return BallCollection;
     }());
-    BouncingBalls.PointCollection = PointCollection;
+    BouncingBalls.BallCollection = BallCollection;
 })(BouncingBalls || (BouncingBalls = {}));
-/// <reference path="point.ts" />
+/// <reference path="ball.ts" />
 var BouncingBalls;
 (function (BouncingBalls) {
     var PointCollectionInforRedDecorator = (function () {
-        function PointCollectionInforRedDecorator(pointCollection) {
-            this.pointCollection = pointCollection;
-            this.points = this.pointCollection.points;
-            this.mousePos = this.pointCollection.mousePos;
+        function PointCollectionInforRedDecorator(ballCollection) {
+            this.ballCollection = ballCollection;
+            this.balls = this.ballCollection.balls;
+            this.mousePos = this.ballCollection.mousePos;
             this.changeColor();
         }
         PointCollectionInforRedDecorator.prototype.update = function () {
-            this.pointCollection.update();
+            this.ballCollection.update();
         };
         PointCollectionInforRedDecorator.prototype.draw = function () {
-            this.pointCollection.draw();
+            this.ballCollection.draw();
         };
         PointCollectionInforRedDecorator.prototype.changeColor = function () {
-            var length = this.pointCollection.points.length;
+            var length = this.ballCollection.balls.length;
             for (var i = 0; i < length; i++) {
-                var point = this.pointCollection.points[i];
+                var point = this.ballCollection.balls[i];
                 point.colour = '#c41731';
             }
             for (var i = 0; i < length; i++) {
-                var point = this.pointCollection.points[i];
+                var point = this.ballCollection.balls[i];
             }
         };
         return PointCollectionInforRedDecorator;
@@ -127,6 +130,8 @@ var BouncingBalls;
 })(BouncingBalls || (BouncingBalls = {}));
 var BouncingBalls;
 (function (BouncingBalls) {
+    //Changed to VectorPoint
+    //Implements, IVector, IPoint
     var Vector = (function () {
         function Vector(x, y, z) {
             if (z === void 0) { z = 0; }
@@ -152,8 +157,8 @@ var BouncingBalls;
     }());
     BouncingBalls.Vector = Vector;
 })(BouncingBalls || (BouncingBalls = {}));
-/// <reference path="point.ts" />
-/// <reference path="pointcollection.ts" />
+/// <reference path="ball.ts" />
+/// <reference path="ballcollection.ts" />
 /// <reference path="vector.ts" />
 /// <reference path="ipointoptions.ts" />
 /// <reference path="scripts/typings/jquery/jquery.d.ts" />
@@ -162,7 +167,7 @@ var BouncingBalls;
     var View = (function () {
         function View(canvas, pointCollection) {
             this.canvas = canvas;
-            this.pointCollection = pointCollection;
+            this.ballCollection = pointCollection;
         }
         View.prototype.initEventListeners = function () {
             var _this = this;
@@ -181,8 +186,8 @@ var BouncingBalls;
             ;
             ctx = this.canvas.getContext('2d');
             ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-            if (this.pointCollection)
-                this.pointCollection.draw();
+            if (this.ballCollection)
+                this.ballCollection.draw();
         };
         View.prototype.updateCanvasDimensions = function () {
             var canvas = jQuery("#c");
@@ -192,12 +197,12 @@ var BouncingBalls;
             this.draw();
         };
         View.prototype.onMove = function (e) {
-            if (this.pointCollection)
-                this.pointCollection.mousePos.set(e.pageX, e.pageY, 0);
+            if (this.ballCollection)
+                this.ballCollection.mousePos.set(e.pageX, e.pageY, 0);
         };
         View.prototype.onTouchMove = function (e) {
-            if (this.pointCollection)
-                this.pointCollection.mousePos.set(e.targetTouches[0].pageX, e.targetTouches[0].pageY, 0);
+            if (this.ballCollection)
+                this.ballCollection.mousePos.set(e.targetTouches[0].pageX, e.targetTouches[0].pageY, 0);
         };
         View.prototype.timeout = function () {
             var _this = this;
@@ -206,8 +211,8 @@ var BouncingBalls;
             setTimeout(function () { _this.timeout(); }, 30);
         };
         View.prototype.update = function () {
-            if (this.pointCollection)
-                this.pointCollection.update();
+            if (this.ballCollection)
+                this.ballCollection.update();
         };
         return View;
     }());

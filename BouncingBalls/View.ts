@@ -1,5 +1,5 @@
-﻿/// <reference path="point.ts" />
-/// <reference path="pointcollection.ts" />
+﻿/// <reference path="ball.ts" />
+/// <reference path="ballcollection.ts" />
 /// <reference path="vector.ts" />
 /// <reference path="ipointoptions.ts" />
 /// <reference path="scripts/typings/jquery/jquery.d.ts" />
@@ -8,12 +8,12 @@ module BouncingBalls {
 
     export class View {
         private canvas: HTMLCanvasElement;
-        public pointCollection: PointCollection
+        public ballCollection: IBallCollection
         private canvasWidth: number;
         private canvasHeight: number;
-        constructor(canvas: HTMLCanvasElement, pointCollection: PointCollection) {
+        constructor(canvas: HTMLCanvasElement, pointCollection: IBallCollection) {
             this.canvas = canvas;
-            this.pointCollection = pointCollection;
+            this.ballCollection = pointCollection;
         }
 
         public initEventListeners(): void {
@@ -36,8 +36,8 @@ module BouncingBalls {
             ctx = this.canvas.getContext('2d');
             ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 
-            if (this.pointCollection)
-                this.pointCollection.draw();
+            if (this.ballCollection)
+                this.ballCollection.draw();
         }
 
         public updateCanvasDimensions(): void {
@@ -49,13 +49,13 @@ module BouncingBalls {
         }
 
         public onMove(e): void {
-            if (this.pointCollection)
-                this.pointCollection.mousePos.set(e.pageX, e.pageY, 0);
+            if (this.ballCollection)
+                this.ballCollection.mousePos.set(e.pageX, e.pageY, 0);
         }
 
         public onTouchMove(e): void {
-            if (this.pointCollection)
-                this.pointCollection.mousePos.set(e.targetTouches[0].pageX, e.targetTouches[0].pageY, 0);
+            if (this.ballCollection)
+                this.ballCollection.mousePos.set(e.targetTouches[0].pageX, e.targetTouches[0].pageY, 0);
         }
 
         public timeout(): void {
@@ -65,8 +65,8 @@ module BouncingBalls {
         }
 
         public update(): void {
-            if (this.pointCollection)
-                this.pointCollection.update();
+            if (this.ballCollection)
+                this.ballCollection.update();
         }
     }
 }

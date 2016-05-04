@@ -1,23 +1,21 @@
 ﻿/// <reference path="scripts/typings/jquery/jquery.d.ts" />
 /// <reference path="ipointoptions.ts" />
 
-
 module BouncingBalls {
 
-    //Refactor, change to Ball class
-    export class Point {
+    export class Ball implements IBouncingBall {
         public x: number;
         public y: number;
         public z: number;
         public size: number;
         public colour: string
-        public currentPosition: Vector;
-        public targetPosition: Vector;
+        public currentPosition: Vector; // code to interface
+        public targetPosition: Vector;  // code to interface
         public radius: number;
-        private friction: number = 0.8;
-        public originalPosition: Vector;
-        private springStrength: number;
-        public velocity: Vector;
+        private friction: number = 0.8; // move to interface
+        public originalPosition: Vector; // code to interface
+        private springStrength: number; // move to interface
+        public velocity: Vector; // code to interface
 
         constructor(x: number, y: number, z: number, size: number, colour: string) {
             this.colour = colour;
@@ -59,6 +57,8 @@ module BouncingBalls {
             if (this.radius < 1) this.radius = 1;
         }
 
+        // move to draw to a different interface/class, draw accepts a ball and then draw//
+        //ball should not be responsible for drawing itself
         public draw(canvas: HTMLCanvasElement): void {
             var context = <CanvasRenderingContext2D>canvas.getContext('2d');
             context.fillStyle = this.colour;

@@ -5,7 +5,5 @@
           x: number;
           y: number;
           z: number;
-          size: number;
-          colour: string
     }
 }
